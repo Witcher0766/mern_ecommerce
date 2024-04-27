@@ -1,0 +1,15 @@
+{
+  "name": "mern_ecommerce",
+  "version": "2.0.0",
+  "description": "eCommerce application built with the MERN_STACK",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon backend/server.js"
+  },
+  "author": "Vishwajeet Kumar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
