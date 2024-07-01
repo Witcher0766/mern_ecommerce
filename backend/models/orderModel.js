@@ -35,12 +35,12 @@ const orderSchema = mongoose.Schema({
         update_time: {type: String},
         email_address: {type: String},
     },
-    itemsprice: {
+    itemsPrice: {
         type: Number,
         required: true,
         default: 0.0,
     },
-    taxprice: {
+    taxPrice: {
         type: Number,
         required: true,
         default: 0.0,
