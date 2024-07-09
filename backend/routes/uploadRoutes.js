@@ -9,8 +9,11 @@ const storage = multer.diskStorage({
         cb(null, 'uploads/');
     },
     filename(req, file, cb) {
-        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-    }
+        cb(
+          null,
+          `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+        );
+      },
 });
 
 function checkFileType(file, cb) {
@@ -26,6 +29,7 @@ function checkFileType(file, cb) {
 
 const upload = multer({
     storage,
+    checkFileType
 });
 router.post('/', upload.single('image'), (req, res) => {
     res.send({
