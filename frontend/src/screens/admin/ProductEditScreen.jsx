@@ -36,6 +36,21 @@ const ProductEditScreen = () => {
 
   const navigate = useNavigate();
 
+
+
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setPrice(product.price);
+      setImage(product.image);
+      setBrand(product.brand);
+      setCategory(product.category);
+      setCountInStock(product.countInStock);
+      setDescription(product.description);
+    }
+  }, [product]);
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const updatedProduct = {
@@ -56,18 +71,6 @@ const ProductEditScreen = () => {
       navigate("/admin/productlist");
     }
   };
-
-  useEffect(() => {
-    if (product) {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image);
-      setBrand(product.brand);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setDescription(product.description);
-    }
-  }, [product]);
 
 
 
