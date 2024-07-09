@@ -13,13 +13,13 @@ import {
 
 const ProductEditScreen = () => {
   const { id: productId } = useParams();
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
+  const [image, setImage] = useState('');
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
 
   const {
     data: product,
@@ -36,6 +36,27 @@ const ProductEditScreen = () => {
 
   const navigate = useNavigate();
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const updatedProduct = {
+      productId,
+      name,
+      price,
+      image,
+      brand,
+      category,
+      description,
+      countInStock,
+    };
+    const result = await updateProduct(updatedProduct)
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success("Product updated");
+      navigate("/admin/productlist");
+    }
+  };
+
   useEffect(() => {
     if (product) {
       setName(product.name);
@@ -48,39 +69,20 @@ const ProductEditScreen = () => {
     }
   }, [product]);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const updatedProduct = {
-      productId,
-      name,
-      price,
-      image,
-      brand,
-      category,
-      countInStock,
-      description,
-    };
-    const result = await updateProduct(updatedProduct);
-    if (result.error) {
-      toast.error(result.error);
-    } else {
-      toast.success("Product updated");
-      navigate("/admin/productlist");
-    }
-  };
+
 
   const uploadFileHandler = async (e) => {
     // e.preventDefault();
-    console.log(e.target.files[0]);
-    // const formData = new FormData();
-    // formData.append('image', e.target.files[0]);
-    // try {
-    //     const res = await uploadProductImage(formData).unwrap();
-    //     toast.success(res.message);
-    //     setImage(res.image);
-    // } catch (err) {
-    //     toast.error(err?.data?.message || err.error);
-    // }
+    // console.log(e.target.files[0]);
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    try {
+        const res = await uploadProductImage(formData).unwrap();
+        setImage(res.image);
+        toast.success(res.message);
+    } catch (err) {
+        toast.error(err?.data?.message || err.error);
+    }
   };
 
   return (
